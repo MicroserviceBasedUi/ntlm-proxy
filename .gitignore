@@ -1,0 +1,4 @@
+// Don't persist the password
+password.json
+
+/node_modules/**
