@@ -1,4 +1,4 @@
-'option strict'
+'option strict';
 
 const http = require('http');
 const httpntlm = require('httpntlm');
