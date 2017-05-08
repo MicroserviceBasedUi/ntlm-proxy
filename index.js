@@ -1,3 +1,5 @@
+'option strict'
+
 const http = require('http');
 const httpntlm = require('httpntlm');
 const fs = require('fs');
@@ -5,9 +7,10 @@ const fs = require('fs');
 // you can pass the parameter in the command line. e.g. node index.js 3000
 const port = process.argv[2] || 9001;
 
-const fileData = JSON.parse(fs.readFileSync('password.json', 'utf8'));
-const userName = fileData.user;
-const password = fileData.password;
+const config = JSON.parse(fs.readFileSync('password.json', 'utf8'));
+
+console.log(`Base URL: ${config.baseUrl}`);
+console.log(`User: ${config.user}`);
 
 http.createServer(function (request, response) {
 
@@ -18,9 +21,9 @@ http.createServer(function (request, response) {
     console.log(`${request.method} ${request.url}`);
 
     httpntlm.get({
-        url: "https://insight.zuehlke.com/api/v1" + request.url,
-        username: userName,
-        password: password,
+        url: config.baseUrl + request.url,
+        username: config.user,
+        password: config.password,
         workstation: '',
         domain: 'ads'
     }, function (err, res) {
