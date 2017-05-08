@@ -9,9 +9,6 @@ const port = process.argv[2] || 9001;
 
 const config = JSON.parse(fs.readFileSync('appconfig.json', 'utf8'));
 
-console.log(`Base URL: ${config.baseUrl}`);
-console.log(`User: ${config.user}`);
-
 http.createServer(function (request, response) {
 
     response.setHeader('Access-Control-Allow-Origin', '*');
@@ -25,7 +22,7 @@ http.createServer(function (request, response) {
         username: config.user,
         password: config.password,
         workstation: '',
-        domain: 'ads'
+        domain: config.domain
     }, function (err, res) {
         if (err) return err;
 
@@ -34,4 +31,5 @@ http.createServer(function (request, response) {
         response.end(res.body);
     });
 }).listen(parseInt(port));
-console.log(`Server listening on port ${port}`);
+
+console.log(`Running on port ${port} and proxying request to base URL ${config.baseUrl} with user ${config.user}`);
