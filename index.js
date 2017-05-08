@@ -7,7 +7,7 @@ const fs = require('fs');
 // you can pass the parameter in the command line. e.g. node index.js 3000
 const port = process.argv[2] || 9001;
 
-const config = JSON.parse(fs.readFileSync('password.json', 'utf8'));
+const config = JSON.parse(fs.readFileSync('appconfig.json', 'utf8'));
 
 console.log(`Base URL: ${config.baseUrl}`);
 console.log(`User: ${config.user}`);

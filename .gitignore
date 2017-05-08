@@ -1,4 +1,4 @@
 // Don't persist the password
-password.json
+appconfig.json
 
 /node_modules/**
