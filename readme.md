@@ -7,5 +7,5 @@
 
 ## Run the proxy
 
-```npm start```
+```yarn start```
 
