@@ -2,3 +2,5 @@
 appconfig.json
 
 /node_modules/**
+yarn.lock
+.vscode/settings.json
