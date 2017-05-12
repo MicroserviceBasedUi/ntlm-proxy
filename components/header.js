@@ -1,7 +1,7 @@
-const Link = link => {
-    return `<a ng-class="{'active': location.path() == '/'}" href="/" class="active">${link}</a>`;
+const Link = (link, activeApp) => {
+    const active = activeApp === link ? 'active' : '';
+    return `<a href="/" class="${active}">${link}</a>`;
 };
-
 
 class Profile extends HTMLElement {
     connectedCallback() {
@@ -49,10 +49,11 @@ class Profile extends HTMLElement {
 
 class Header extends HTMLElement {
     connectedCallback() {
-        this.render(['Home', 'Employees']);
+        this.render(['Home', 'Employees', 'Groups', 'Training', 'Projects', 'Phases', 'Career', 'Agile Planner']);
     }
 
     render(links) {
+        const activeApp = this.getAttribute('activeApp');
         this.innerHTML = ` <div class="nav-panel" style="border-bottom-color: #d3d3d3;">
         <div class="clearfix">
             <a class="pull-left" href="/"><img style="margin-top: 7px;" src="http://localhost:9000/insight/logo.png"></a>
@@ -67,13 +68,7 @@ class Header extends HTMLElement {
             </div>
         </div>
         <div class="nav-modules">
-            ${links.map(Link).join('')}
-            <a ng-class="{'active': location.path().indexOf('/groups') > -1}" href="/groups/search" class="">Groups</a>
-            <a ng-class="{'active': location.path().indexOf('/trainings') > -1}" href="/trainings">Trainings</a>
-            <a ng-class="{'active': location.path().indexOf('/projects') > -1}" href="/projects/search">Projects</a>
-            <a ng-class="{'active': location.path().indexOf('/project-phases') > -1}" href="/project-phases/search">Phases</a>
-            <a ng-class="{'active': location.path().indexOf('/career') > -1 || location.path().indexOf('/career') > -1}" href="/career">Career</a>
-            <a ng-class="{'active': location.path().indexOf('/adm') > -1}" href="/adm">Deliverables &amp; Capabilities</a>
+            ${links.map(link => Link(link, activeApp)).join('')}
             <div class="dropdown" style="display: inline-block;">
                 <a href="#" data-toggle="dropdown">More</a>
                 <ul class="dropdown-menu">
